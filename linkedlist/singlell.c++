@@ -7,12 +7,13 @@ struct linked{
     linked* next;
 };
 // insertion at the  beggining of the list
-void insertval1(linked* head ,int value){
+void insertval1(linked*& head ,int value){
     linked* newnode = new linked();
     newnode ->data= value;
     newnode -> next = head;
     head = newnode;
 }
+//insert at the end of the linkedlist
 void insertval2(linked*& head,int value){
     linked* nw = new linked();
     nw->data = value;
@@ -51,24 +52,20 @@ void insertval3(linked*& head , int value ,int pos){
     newNode->next = temp->next;
     temp->next = newNode;
 }
+// used to display our linkedlist
 void display(linked* head){
     linked* temp = head;
     while (temp != NULL){
         cout<<temp->data<<"->";
         temp = temp ->next;
     }
+    cout<<"NULL"<<endl;
 }
 int main(){
-    linked* head = new linked();
-    head->data =10;
-    linked* second = new linked();
-    second->data = 12;
-    linked* third = new linked();
-    third->data= 14;
-    
-    head->next = second ;
-    second->next = third ;
-    third ->next= NULL;
+    linked* head = NULL;
+    insertval1(head,5);
+    insertval2(head,34);
+    insertval3(head,12,2);
     display(head);
     return 0;
 }
