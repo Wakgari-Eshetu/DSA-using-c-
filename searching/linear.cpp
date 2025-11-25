@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 using namespace std;
 int binarysearch(int arr[], int n, int target) {
     int left = 0;
@@ -21,6 +22,9 @@ int main(){
     cout<<"Inter the number you want to search: ";
     int target ;
     cin >> target; 
-    bool found = false;
+    int result = binarysearch(arr, n, target);
+    if (result != -1) { 
+        cout<<"Found the "+ to_string(target);
+    }
 
 }
