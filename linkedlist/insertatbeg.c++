@@ -1,43 +1,119 @@
 #include <iostream>
-
 using namespace std;
 
-struct linked{
+struct leli{
     int data;
-    linked* next;
+    leli* next;
 
 };
 
-void insertval1(linked*& head ,int value){
-    linked* newnode = new linked();
-    newnode ->data= value;
-    newnode -> next = head;
-    head = newnode;
-}
-void insertval2(linked*& head ,int value){
-    linked* newnode = new linked();
+void insertvalue1(leli* & head , int value){
+    leli* newnode = new leli();
     newnode->data = value;
     newnode->next = head;
-    if(head==NULL){
-        head=newnode;
+    head = newnode ;
+}
+void insertvalue2(leli*& head ,int value ){
+    leli* newnode = new leli();
+    newnode->data = value;
+    newnode->next = NULL;
+    if(head == NULL){
+        head = newnode;
+        return;
+    }
+    leli* temp = head;
+    while(temp->next!= NULL){
+        temp = temp->next;
+    }
+    
+    temp->next = newnode;
+}
+
+void insertvalue3(leli* & head , int value , int pos){
+    leli* newnode = new leli();
+    newnode->data = value ;
+    leli* temp = head ;
+    for(int i=1 ;i<pos-1 && temp->next != NULL;i++){
+        temp = temp->next;
+    }
+    newnode-> next = temp->next;
+    temp->next  = newnode;
+
+}
+
+void deletevalue1(leli* & head ){
+    if(head== NULL){
+        cout<<"linked list is empty";
+        return ;
+
+    }
+    leli* temp = head;
+    head = head->next;
+
+    delete temp ;
+}
+void deletevalue2(leli* & head ){
+    if(head== NULL){
+        cout<<"linked list is empty";
+        return ;
+
+    }
+    if(head->next == NULL){
+        delete head;
+        head =NULL;
         return ;
     }
-}
-void display(linked* head){
-    linked* temp = head;
-    while (temp != NULL){
-        cout<<temp->data<<"->";
-        temp = temp ->next;
+    leli* temp = head;
+    while(temp->next->next != NULL){
+        temp = temp->next;
     }
-    cout<<"NULL"<<endl;
+    delete temp->next;
+    temp->next = NULL;
+}
+void deletevalue3(leli* & head , int pos){
+    if(head== NULL){
+        cout<<"linked list is empty";
+        return ;
+
+    }
+
+    if(pos==1){
+        leli* temp = head;
+        head = head->next;
+        delete temp;
+        return ;
+    }
+
+    leli* temp = head;
+    for(int i = 1;i<pos-1 && temp->next != NULL ;i++ ){
+        temp = temp->next;
+    }
+    if(temp->next == NULL){
+        cout<<"Invalid position ";
+        return;
+    }
+
+    leli* del = temp->next;
+    temp->next= del->next;
+    delete del;
+
+
+}
+void display(leli* & head){
+    if(head == NULL){
+        cout<<"Empty list";
+        return ;
+    }
+    leli* temp = head;
+    while(temp!= NULL){
+        cout<<temp->data<<" ";
+        temp = temp->next;
+    }
 }
 
 int main(){
-    linked* head = NULL;
-    insertval1(head,20);
-    insertval1(head,40);
-    insertval1(head,60);
-    insertval1(head,80);
-    insertval1(head,10);
+    leli* head = NULL;
+    insertvalue1(head,2);
     display(head);
+    return 0;
 }

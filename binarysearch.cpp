@@ -70,32 +70,59 @@ int height(Node* root) {
 }
 
 
-
-Node* deleteNode(Node* root, int key) {
+// Deletion by copying: replace node with inorder successor (smal lest in right subtree)
+Node* deleteByCopy(Node* root, int key) {
     if (root == NULL)
         return root;
 
     if (key < root->data)
-        root->left = deleteNode(root->left, key);
+        root->left = deleteByCopy(root->left, key);
     else if (key > root->data)
-        root->right = deleteNode(root->right, key);
+        root->right = deleteByCopy(root->right, key);
     else {
-        
+        // Node with only one child or no child
         if (root->left == NULL) {
             Node* temp = root->right;
             delete root;
             return temp;
-        } 
-        else if (root->right == NULL) {
+        } else if (root->right == NULL) {
             Node* temp = root->left;
             delete root;
             return temp;
         }
 
-       
+        // Node with two children: get the inorder successor (min in right subtree)
         Node* temp = findMin(root->right);
-        root->data = temp->data;
-        root->right = deleteNode(root->right, temp->data);
+        root->data = temp->data; // copy successor's value
+        root->right = deleteByCopy(root->right, temp->data);
+    }
+    return root;
+}
+
+// Helper to merge two BSTs where all keys in left are <= keys in right
+Node* mergeTrees(Node* left, Node* right) {
+    if (left == NULL) return right;
+    Node* cur = left;
+    while (cur->right != NULL)
+        cur = cur->right;
+    // attach right subtree as the rightmost's right child
+    cur->right = right;
+    return left;
+}
+
+// Deletion by merging: replace deleted node by merging its left and right subtrees
+Node* deleteByMerge(Node* root, int key) {
+    if (root == NULL) return root;
+
+    if (key < root->data)
+        root->left = deleteByMerge(root->left, key);
+    else if (key > root->data)
+        root->right = deleteByMerge(root->right, key);
+    else {
+        Node* L = root->left;
+        Node* R = root->right;
+        delete root;
+        return mergeTrees(L, R);
     }
     return root;
 }
@@ -108,7 +135,7 @@ int main() {
     int choice, value;
 
     do {
-        cout << "\n1. Insert\n2. Search\n3. Inorder Traversal\n4. Delete\n5. Exit\n";
+        cout << "\n1. Insert\n2. Search\n3. Inorder Traversal\n4. Delete (copying)\n5. Delete (merging)\n6. Exit\n";
         cout << "Enter choice: ";
         cin >> choice;
 
@@ -135,19 +162,25 @@ int main() {
             break;
 
         case 4:
-            cout << "Enter value to delete: ";
+            cout << "Enter value to delete (copying): ";
             cin >> value;
-            root = deleteNode(root, value);
+            root = deleteByCopy(root, value);
             break;
 
         case 5:
+            cout << "Enter value to delete (merging): ";
+            cin >> value;
+            root = deleteByMerge(root, value);
+            break;
+
+        case 6:
             cout << "Exiting...\n";
             break;
 
         default:
             cout << "Invalid choice\n";
         }
-    } while (choice != 5);
+    } while (choice != 6);
 
     return 0;
 }
