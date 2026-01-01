@@ -127,6 +127,40 @@ void tobinary(int kena){
         s.pop();
     }
 }
+void evalexpression(str kena = postfix()){
+    stack<int> s;
+    for(int i =0 ; i< kena.length();i++){
+        if(isdigit(kena[i])){
+            s.push(kena[i] - '0');
+        }
+        else{
+            int a = s.top();
+            s.pop();
+            int b = s.top();
+            s.pop();
+
+            switch(kena[i]){
+                case '+':
+                    s.push(a+b);
+                    break;
+                case '-':
+                    s.push(a-b);
+                    break;
+                case '*':
+                    s.push(a*b);
+                    break;
+                case '/':
+                    s.push(a/b);
+                    break;
+                case '^':
+                    s.push(pow(a,b));
+                    break;
+            }
+            }
+        }
+        return s.top();
+    }
+
 int main(){
     cout<<reversef("lelisa")<<endl;
     if (1 == checkpalindrome("lelisa")){
