@@ -110,6 +110,42 @@ void display(leli* & head){
         temp = temp->next;
     }
 }
+//searching value in the singly linked list 
+bool searchvalue(leli*& head,int value){
+    if(head==NULL){
+        cout<<"list is empty";
+        return false;
+    }
+    leli* temp = head;
+    while(temp->next!= NULL){
+        if(temp->data == value){
+            return true;
+        }
+        temp = temp->next;
+    }
+    return false;
+
+}
+//sorting value in linked list 
+void sortingvalue(leli* & head){
+    if(head ==NULL){
+        cout<<"your list is empty i can't help you!!";
+        return ;
+    }
+    leli* i ;
+    leli* j;
+    int temp;
+    for(i = head;i!=NULL;i=i->next){
+        for(j=i->next;j!=NULL;j=j->next){
+            if(i->data > j->data){
+                temp = i->data;
+                i->data = j->data;
+                j->data = temp;
+            }
+        }
+    }
+}
+
 
 int main(){
     leli* head = NULL;

@@ -85,7 +85,7 @@ void deletevalue1(leli* & head){
     head->prev = NULL;
     delete temp ;
 }
-
+// 2.deleting at the end 
 void deletevalue2(leli*& head){
     if(head==NULL){
         cout<<"list is empty";
@@ -103,7 +103,7 @@ void deletevalue2(leli*& head){
     delete temp;
 
 }
-//deleting from any point
+//3.deleting from any point
 void deletevalue3(leli*& head, int pos){
     if(head==NULL){
         cout<<"list is empty";
