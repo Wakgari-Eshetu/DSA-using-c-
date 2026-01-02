@@ -13,17 +13,20 @@ struct Node {
 struct Graph {
     Node* adj[V];   
 };
+
 Node* createNode(int v) {
     Node* newNode = new Node();
     newNode->vertex = v;
     newNode->next = NULL;
     return newNode;
 }
+
 void addEdge(Graph* graph, int src, int dest) {
     Node* newNode = createNode(dest);
     newNode->next = graph->adj[src];
     graph->adj[src] = newNode;
 }
+
 bool hasPath_BFS(Graph* graph, int start, int dest) {
     bool visited[V] = {false};
     queue<int> q;
@@ -50,6 +53,7 @@ bool hasPath_BFS(Graph* graph, int start, int dest) {
     }
     return false;
 }
+
 bool hasPath_DFS(Graph* graph, int v, int dest, bool visited[]) {
     if (v == dest)
         return true;
@@ -67,6 +71,7 @@ bool hasPath_DFS(Graph* graph, int v, int dest, bool visited[]) {
     }
     return false;
 }
+
 int main() {
     Graph graph;
     string country[11] = {"Addis Ababa","Adama","hawassa","arbaminch","diredawa","jijiga","harar","debrebrehan","bahrdar","jimma","nekemte"};
