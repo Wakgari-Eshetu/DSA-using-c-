@@ -2,10 +2,10 @@
 #include <queue>
 using namespace std;
 
-#define V 5   // Number of vertices
+#define V 11   // Number of vertices
 
 // BFS using adjacency matrix
-void BFS_Matrix(int adj[V][V], int start) {
+bool hasPath_BFS(int adj[V][V], int start, int dest) {
     bool visited[V] = {false};
     queue<int> q;
 
@@ -15,7 +15,9 @@ void BFS_Matrix(int adj[V][V], int start) {
     while (!q.empty()) {
         int v = q.front();
         q.pop();
-        cout << v << " ";
+
+        if (v == dest)
+            return true;  
 
         for (int i = 0; i < V; i++) {
             if (adj[v][i] == 1 && !visited[i]) {
@@ -24,35 +26,66 @@ void BFS_Matrix(int adj[V][V], int start) {
             }
         }
     }
+    return false;  
 }
 
+
 // DFS using adjacency matrix
-void DFS_Matrix(int adj[V][V], int v, bool visited[]) {
+bool hasPath_DFS(int adj[V][V], int v, int dest, bool visited[]) {
+    if (v == dest)
+        return true;
+
     visited[v] = true;
-    cout << v << " ";
 
     for (int i = 0; i < V; i++) {
         if (adj[v][i] == 1 && !visited[i]) {
-            DFS_Matrix(adj, i, visited);
+            if (hasPath_DFS(adj, i, dest, visited))
+                return true;
         }
     }
+    return false;
 }
 
+
 int main() {
+    string country[11] = {"Addis Ababa","Adama","hawassa","arbaminch","diredawa","jijiga","harar","debrebrehan","bahrdar","jimma","nekemte"};
     int adj[V][V] = {
-        {0,1,1,0,0},
-        {1,0,0,1,0},
-        {1,0,0,1,1},
-        {0,1,1,0,0},
-        {0,0,1,0,0}
+        {0,1,0,0,0,0,0,1,0,1,0},
+        {0,0,1,0,0,0,0,0,0,0,0},
+        {0,0,0,1,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,1,1,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0},
+        {1,0,0,0,0,0,0,0,1,0,0},
+        {0,0,0,0,0,0,0,1,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,1},
+        {0,0,0,0,0,0,0,0,0,0,0}
     };
 
-    cout << "BFS (Matrix): ";
-    BFS_Matrix(adj, 0);
+    int src = 0;
+    int dest = 3;
+
+    if (hasPath_BFS(adj, src, dest))
+        cout << "Path exists from " 
+        << country[src] << " to " 
+        << country[dest]<<endl;
+
+    else
+        cout << "Path doesnot exists from " 
+            << country[src] << " to " 
+            << country[dest]<<endl;
 
     bool visited[V] = {false};
-    cout << "\nDFS (Matrix): ";
-    DFS_Matrix(adj, 0, visited);
+
+    if (hasPath_DFS(adj, src, dest, visited))
+        cout << "Path exists from " 
+            << country[src] << " to " 
+            << country[dest]<<endl;
+    else
+        cout << "Path doesnot exists from " 
+        << country[src] << " to " 
+        << country[dest]<<endl;
 
     return 0;
 }
