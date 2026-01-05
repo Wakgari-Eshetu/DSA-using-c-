@@ -144,6 +144,19 @@ int minvalue(leli*& root){
     }
     return temp->data;
 }
+int sizeoftree(leli*& root){
+    if(root== NULL){
+        return 0;
+    }
+    return 1 + sizeoftree(root->left) + sizeoftree(root->right);
+}
+int height(leli* & root){
+    if(root == NULL){
+        return -1;
+    }
+
+    return 1+ max(height(root->left), height(root->right));
+}
 int main(){
     leli* root = NULL;
     insertvalue(root,50);
