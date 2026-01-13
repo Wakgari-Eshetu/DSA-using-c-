@@ -70,7 +70,7 @@ int height(Node* root) {
 }
 
 
-// Deletion by copying: replace node with inorder successor (smal lest in right subtree)
+// Deletion by copying: replace node with inorder successor (smallest in right subtree)
 Node* deleteByCopy(Node* root, int key) {
     if (root == NULL)
         return root;

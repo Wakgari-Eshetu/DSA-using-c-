@@ -31,7 +31,8 @@ bool hasPath_BFS(int adj[V][V], int start, int dest) {
 
 
 // DFS using adjacency matrix
-bool hasPath_DFS(int adj[V][V], int v, int dest, bool visited[]) {
+bool hasPath_DFS(int adj[V][V], int v, int dest) {
+    bool visited[V] = {false};
     if (v == dest)
         return true;
 
@@ -39,7 +40,7 @@ bool hasPath_DFS(int adj[V][V], int v, int dest, bool visited[]) {
 
     for (int i = 0; i < V; i++) {
         if (adj[v][i] == 1 && !visited[i]) {
-            if (hasPath_DFS(adj, i, dest, visited))
+            if (hasPath_DFS(adj, i, dest))
                 return true;
         }
     }
@@ -76,9 +77,9 @@ int main() {
             << country[src] << " to " 
             << country[dest]<<endl;
 
-    bool visited[V] = {false};
+    
 
-    if (hasPath_DFS(adj, src, dest, visited))
+    if (hasPath_DFS(adj, src, dest))
         cout << "Path exists from " 
             << country[src] << " to " 
             << country[dest]<<endl;

@@ -7,7 +7,7 @@ int queue[size];
 int front = -1 ;
 int rear = -1 ;
 void insertvalue(int value ){
-    if(rear == size -1){
+    if(rear == size - 1){
         cout<<"queue overflow ";
         return ;
     }

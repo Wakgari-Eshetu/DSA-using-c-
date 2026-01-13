@@ -98,7 +98,7 @@ string postfix(string kena){
             s.pop();
         }
         else{
-            while(!s.empty() && precedence(s.top)>precedence(kena[i])){
+            while(!s.empty() && precedence(s.top)>=precedence(kena[i])){
                 str += s.top();
                 s.pop();
                 
